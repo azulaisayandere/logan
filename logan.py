@@ -9,9 +9,9 @@
 # train language model [x]
 
 from bot_cmds.bot_commands import client
-from config import TOKEN
+from config import LOGAN
 from datetime import datetime
-from discord import Forbidden, Game
+from discord import Game
 from logs.logs import log_data
 from sys import version
 
@@ -28,8 +28,7 @@ async def on_ready():
 async def on_message(message):
     if message.author != client.user:
         await log_data(message)
-        print(f"[{message.created_at.strftime('%H:%M:%S')}] Forbidden 403 Encountered")
 
     await client.process_commands(message)
 
-client.run(TOKEN)
+client.run(LOGAN)
