@@ -9,7 +9,7 @@
 # train language model [x]
 
 from bot_cmds.bot_commands import client
-from config import LOGAN
+from config import TEST
 from datetime import datetime
 from discord import Game
 from logs.logs import log_data
@@ -31,4 +31,4 @@ async def on_message(message):
 
     await client.process_commands(message)
 
-client.run(LOGAN)
+client.run(TEST)

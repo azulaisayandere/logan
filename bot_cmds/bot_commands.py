@@ -1,54 +1,37 @@
 from asyncio import sleep
 from datetime import datetime
-from discord import Forbidden, File
+from discord import Forbidden, File, Intents
 from discord.ext import commands
-from json import dump
-from logs.logs import masslist, write
+from logs.logs import masslist
 from pandas import DataFrame
 
 # Establish client user
-client = commands.Bot(command_prefix="logan ")
+intents = Intents.all()
+# intents.message_content = True
+# intents.messages = True
+# intents.typing = True
+client = commands.Bot(command_prefix="logan ", intents=intents)
 
 # i hate rewriting this every time
 async def typing(ctx, x):
     await ctx.channel.trigger_typing()
     await sleep(x)
 
+# role ids for debugging
+test = 1010746100958900284
+vrcc = 793013468256010270
+
 # Discord commands
 @client.command()
-async def export(ctx, logtype):
-    if ctx.author.id == 204366690446737419:
-        for guilds in masslist:
-            if guilds['guid'] == ctx.guild.id:
-                if logtype == 'user':
-                    df = DataFrame(guilds['users'], columns=['name', 'cnt'])
-                    df.to_csv(f'{ctx.guild.id}_user_log.csv') # export by server via command
-                    await typing(ctx, 3)
-                    await ctx.send(file=File(f'{ctx.guild.id}_user_log.csv'))
-                    print(f"[{datetime.now().strftime('%H:%M:%S')}] Exported message count log for {ctx.guild}!")
-                elif logtype == 'time':
-                    df = DataFrame(guilds['time'], columns=['time'])
-                    df.to_csv(f'{ctx.guild.id}_time_log.csv')
-                    await typing(ctx, 3)
-                    await ctx.send(file=File(f'{ctx.guild.id}_time_log.csv'))
-                    print(f"[{datetime.now().strftime('%H:%M:%S')}] Exported time log for {ctx.guild}!")
-                else:
-                    await typing(ctx, 2)
-                    await ctx.channel.send('invalid argument')
-    else:
-        try:
-            await typing(ctx, 1)
-            await ctx.channel.send("you're not my master fuck off")
-        except Forbidden:
-            print(f"[{ctx.message.created_at.strftime('%H:%M:%S')}] Forbidden 403 Encountered")
-
-@client.command()
-async def man(ctx):
-    try:
-        await typing(ctx, 2)
-        await ctx.channel.send("usage: logan ___ \ncommands:\nstats- displays internally logged stats (WIP) e.g. logan stats <discord tag>\nrate- modifies response rate (WIP) e.g. logan rate <discord tag>\nexport- sends a .csv of the data logged for this server\n\nman- sends this manual")
-    except Forbidden:
-        print(f"[{ctx.message.created_at.strftime('%H:%M:%S')}] Forbidden 403 Encountered")
+@commands.has_role(test)
+async def export(ctx):
+    print(ctx)
+    for guilds in masslist:
+        if guilds['guid'] == ctx.guild.id:
+            DataFrame(guilds['users'], columns=['name', 'cnt']).to_csv(f'{ctx.guild.id}_user_log.csv') # export by server via command
+            await typing(ctx, 3)
+            await ctx.send(file=File(f'{ctx.guild.id}_user_log.csv'))
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Exported message count log for {ctx.guild}!")
 
 @client.command()
 async def stats(ctx, name):
