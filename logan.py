@@ -1,12 +1,4 @@
-# shoutouts to stackoverflow and charles from which i stole the basis for a lot of this code
-# objectives: + done * in progress x not started
-# spam every nth message [+]
-# target specific users [+]
-# log user data [+]
-# log frequency data[+], most active users[+], message times [+] 
-# move logs from json to mariadb [x]
-# pedophile slaughterhouse contribution [+] now removed, 37,846 kid diddlers dead :)
-# train language model [x]
+# shoutouts to stackoverflow
 
 from bot_cmds.bot_commands import client
 from config import LOGAN
