@@ -34,7 +34,6 @@ async def log_data(message):
             userlist.append({
                 'name': f'{message.author}',
                 'uid': message.author.id,
-                'dnm': 40,
                 'cnt': 1})
             print(f"[{message.created_at.strftime('%H:%M:%S')}] Logged new user, {message.author}, in {message.guild}! ")
 
@@ -45,7 +44,6 @@ async def log_data(message):
                 guilds['users'].append({
                         'name': f'{message.author}',
                         'uid': message.author.id,
-                        'dnm': 40,
                         'cnt': 1})
                 print(f"[{message.created_at.strftime('%H:%M:%S')}] Logged new user, {message.author}, in {message.guild}!")
             else:
