@@ -7,9 +7,6 @@ from pandas import DataFrame
 
 # Establish client user
 intents = Intents.all()
-# intents.message_content = True
-# intents.messages = True
-# intents.typing = True
 client = commands.Bot(command_prefix="logan ", intents=intents)
 
 # i hate rewriting this every time
@@ -23,7 +20,7 @@ vrcc = 793013468256010270
 
 # Discord commands
 @client.command()
-@commands.has_role(test)
+@commands.has_role(test) # put in json file for easier appending later on
 async def export(ctx):
     for guilds in masslist:
         if guilds['guid'] == ctx.guild.id:
