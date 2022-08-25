@@ -14,7 +14,7 @@ client = commands.Bot(command_prefix="logan ", intents=intents)
 
 # i hate rewriting this every time
 async def typing(ctx, x):
-    await ctx.channel.trigger_typing()
+    await ctx.channel.typing()
     await sleep(x)
 
 # role ids for debugging
@@ -25,7 +25,6 @@ vrcc = 793013468256010270
 @client.command()
 @commands.has_role(test)
 async def export(ctx):
-    print(ctx)
     for guilds in masslist:
         if guilds['guid'] == ctx.guild.id:
             DataFrame(guilds['users'], columns=['name', 'cnt']).to_csv(f'{ctx.guild.id}_user_log.csv') # export by server via command
