@@ -38,11 +38,11 @@ async def stats(ctx, name):
                     if name == "me":
                         if ctx.author.id == user['uid']:
                             await typing(ctx, 2)
-                            await ctx.channel.send(f"logan Stats for {user['name']}, Message Count: {user['cnt']}, Rate: {round((100/user['dnm']), 1)}%")
+                            await ctx.channel.send(f"logan Stats for {user['name']}, Message Count: {user['cnt']}")
                     else:
                         if (name == user['name']) or (name == f"<@{user['uid']}>"):
                             await typing(ctx, 2)
-                            await ctx.channel.send(f"logan Stats for {user['name']}, Message Count: {user['cnt']}, Rate: {round((100/user['dnm']), 1)}%")
+                            await ctx.channel.send(f"logan Stats for {user['name']}, Message Count: {user['cnt']}")
             except Forbidden:
                 print(f"[{ctx.message.created_at.strftime('%H:%M:%S')}] Forbidden 403 Encountered")
 
