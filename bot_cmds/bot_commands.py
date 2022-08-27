@@ -14,13 +14,9 @@ async def typing(ctx, x):
     await ctx.channel.typing()
     await sleep(x)
 
-# role ids for debugging
-test = 1010746100958900284
-vrcc = 793013468256010270
-
 # Discord commands
 @client.command()
-@commands.has_role(test) # put in json file for easier appending later on
+@commands.has_permissions(moderate_members=True) # mod and up perms
 async def export(ctx):
     for guilds in masslist:
         if guilds['guid'] == ctx.guild.id:

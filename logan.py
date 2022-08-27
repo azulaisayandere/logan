@@ -4,7 +4,7 @@ from bot_cmds.bot_commands import client
 from config import LOGAN
 from datetime import datetime
 from discord import Game
-from logs.logs import log_data
+from logs.logs import log_data#, role_check broken atm
 from sys import version
 
 # print version
@@ -20,6 +20,7 @@ async def on_ready():
 async def on_message(message):
     if message.author != client.user:
         await log_data(message)
+        #await role_check(message)
 
     await client.process_commands(message)
 
